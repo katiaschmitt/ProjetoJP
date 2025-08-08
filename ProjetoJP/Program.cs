@@ -9,7 +9,7 @@ db.Conectar();
 
 AlunoRepositorio alunoRepositorio = new AlunoRepositorio(db.conn);
 
-
+var teste = "";
 int opcoes = 0;
 
 while (opcoes != 5)
