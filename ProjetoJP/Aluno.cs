@@ -12,7 +12,16 @@ namespace ProjetoJP
         public string Nome { get; set; }
         public int Idade { get; set; }
         public string Cpf { get; set; }
-       
+        public string Cep { get; set; }
+        public string Endereco { get; set; }
+        public string Numero { get; set; }
+        public string Bairro { get; set; }
+        public string Cidade { get; set; }
+        public string Estado { get; set; }
+        public double Nota1 { get; set; }
+        public double Nota2 { get; set; }
+
+
 
     }
 

@@ -14,12 +14,12 @@ namespace ProjetoJP.Data
         {
             _conn = conn;
         }
-        public string InserirAluno(Conexao db, Aluno aluno)
+        public string InserirAluno(Aluno aluno)
         {
             try
             {
                 string sql = $"INSERT INTO Aluno (Nome, Idade, Cpf) VALUES('{aluno.Nome}', {aluno.Idade}, '{aluno.Cpf}')";
-                SqlCommand comando = new SqlCommand(sql, db.conn);
+                SqlCommand comando = new SqlCommand(sql, _conn);
 
                 comando.ExecuteNonQuery();
 
@@ -32,12 +32,12 @@ namespace ProjetoJP.Data
             }
         }
 
-        public List<Aluno> BuscarAlunos(Conexao db)
+        public List<Aluno> BuscarAlunos()
         {
             try
             {
                 string sql = "select Nome, Idade, Cpf from Aluno";
-                SqlCommand comando = new SqlCommand(sql, db.conn);
+                SqlCommand comando = new SqlCommand(sql, _conn);
 
                 List<Aluno> alunos = new List<Aluno>();
 
@@ -71,7 +71,7 @@ namespace ProjetoJP.Data
 
         }
 
-        public string EditarAluno(Conexao db, Aluno aluno)
+        public string EditarAluno(Aluno aluno)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace ProjetoJP.Data
                     SET Nome = @Nome, Idade = @Idade, Cpf = @Cpf
                     Where Id = @Id";
 
-                using (SqlCommand comando = new SqlCommand(sql, db.conn))
+                using (SqlCommand comando = new SqlCommand(sql, _conn))
                 {
                     comando.Parameters.AddWithValue("@Nome", aluno.Nome);
                     comando.Parameters.AddWithValue("@Idade", aluno.Idade);
@@ -95,6 +95,28 @@ namespace ProjetoJP.Data
             {
 
                 return "Erro ao editar Aluno";
+            }
+        }
+
+        public string ExcluirAluno(int id)
+        {
+            try
+            {
+                string sql = @"delete from Aluno Where Id = @Id";
+
+                using (SqlCommand comando = new SqlCommand(sql, _conn))
+                {
+                    comando.Parameters.AddWithValue("@Id", id);
+
+                    comando.ExecuteNonQuery();
+
+                    return "Aluno Excluído com sucesso";
+                }
+            }
+            catch (Exception e)
+            {
+
+                return "Erro ao excluir Aluno";
             }
         }
 
